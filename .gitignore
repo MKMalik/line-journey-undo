@@ -1,0 +1,18 @@
+# Node.js related files
+node_modules/
+npm-debug.log
+
+# Compiled files
+out/
+
+# Dependency directories
+lib/
+
+# macOS related files
+.DS_Store
+
+# Editor directories
+.vscode/
+.idea/
+.eslintrc.json
+.vscodeignore

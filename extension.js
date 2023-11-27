@@ -75,9 +75,24 @@ function navigateForward(editor) {
 	}
 }
 
+let decorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: 'rgba(255, 29, 88, 0.5)', // Use the color #ff1d58 with 50% opacity
+    isWholeLine: true
+});
+
 function navigateToLine(editor, lineNumber) {
 	const newPosition = editor.selection.active.with(lineNumber.line, lineNumber.column);
 	editor.selection = new vscode.Selection(newPosition, newPosition);
+	editor.revealRange(new vscode.Range(newPosition, newPosition), vscode.TextEditorRevealType.InCenter);
+
+	// Create a decoration on the line that has been navigated to
+	let decoration = { range: new vscode.Range(newPosition, newPosition) };
+	editor.setDecorations(decorationType, [decoration]);
+
+	// Remove the decoration after 500ms
+	setTimeout(() => {
+		editor.setDecorations(decorationType, []);
+	}, 500);
 }
 
 function activate(context) {

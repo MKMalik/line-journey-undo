@@ -1,7 +1,9 @@
 {
   "name": "line-journey-undo",
   "displayName": "Line Journey Undo",
+  "icon": "line-journey-undo-logo.png",
   "description": "LineJourneyUndo enhances code navigation in Visual Studio Code by enabling swift traversal between previously accessed lines. Explore your code's pathways effortlessly, retracing your steps with ease, simplifying navigation within your coding journey.",
+  "publisher": "MKMalik",
   "repository": {
     "type": "git",
     "url": "https://github.com/MKMalik/line-journey-undo"

@@ -23,11 +23,11 @@
     "commands": [
       {
         "command": "extension.navigateBackwardInLine",
-        "title": "Navigate Backward (MKMALIK)"
+        "title": "Navigate Backward (Line Journey Undo)"
       },
       {
         "command": "extension.navigateForwardInLine",
-        "title": "Navigate Forward (MKMALIK)"
+        "title": "Navigate Forward (Line Journey Undo)"
       },
       {
         "command": "lineJourneyUndo.configure",

@@ -114,57 +114,82 @@ function navigateToLine(editor, lineNumber) {
   }, 500);
 }
 
+// function activate(context) {
+//   context.subscriptions.push(
+//     vscode.workspace.onDidChangeConfiguration(e => {
+//       if (e.affectsConfiguration('lineJourneyUndo')) {
+//         console.log('LineJourneyUndo settings updated');
+//       }
+//     })
+//   );
+//
+//   let disposable = vscode.window.onDidChangeTextEditorSelection((event) => {
+//     handleLineChange(event.textEditor);
+//   });
+//
+//   context.subscriptions.push(disposable);
+//
+//   context.subscriptions.push(
+//     vscode.commands.registerCommand('extension.navigateBackwardInLine', () => {
+//       navigateBackward(vscode.window.activeTextEditor);
+//     })
+//   );
+//
+//   context.subscriptions.push(
+//     vscode.commands.registerCommand('extension.navigateForwardInLine', () => {
+//       navigateForward(vscode.window.activeTextEditor);
+//     })
+//   );
+// }
+
 function activate(context) {
+
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(e => {
-      if (e.affectsConfiguration('lineJourneyUndo')) {
-        console.log('LineJourneyUndo settings updated');
+      if (e.affectsConfiguration("lineJourneyUndo")) {
+        console.log("LineJourneyUndo settings updated");
       }
     })
   );
 
-  let disposable = vscode.window.onDidChangeTextEditorSelection((event) => {
-    handleLineChange(event.textEditor);
-  });
-
-  context.subscriptions.push(disposable);
-
   context.subscriptions.push(
-    vscode.commands.registerCommand('extension.navigateBackwardInLine', () => {
-      navigateBackward(vscode.window.activeTextEditor);
+    vscode.window.onDidChangeTextEditorSelection((event) => {
+      handleLineChange(event.textEditor);
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('extension.navigateForwardInLine', () => {
-      navigateForward(vscode.window.activeTextEditor);
-    })
+    vscode.commands.registerCommand(
+      "extension.navigateBackwardInLine",
+      () => {
+        navigateBackward(vscode.window.activeTextEditor);
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "extension.navigateForwardInLine",
+      () => {
+        navigateForward(vscode.window.activeTextEditor);
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "lineJourneyUndo.configure",
+      async () => {
+        await vscode.commands.executeCommand(
+          "workbench.action.openSettings",
+          "lineJourneyUndo"
+        );
+      }
+    )
   );
 }
 
-let commandsRegistered = false; // Flag to track command registration
-function activate(context) {
-  let disposable = vscode.window.onDidChangeTextEditorSelection((event) => {
-    handleLineChange(event.textEditor);
-  });
-
-  context.subscriptions.push(disposable);
-
-  if (!commandsRegistered) {
-    let navigateBackwardCommand = vscode.commands.registerCommand('extension.navigateBackwardInLine', () => {
-      navigateBackward(vscode.window.activeTextEditor);
-    });
-
-    let navigateForwardCommand = vscode.commands.registerCommand('extension.navigateForwardInLine', () => {
-      navigateForward(vscode.window.activeTextEditor);
-    });
-
-    context.subscriptions.push(navigateBackwardCommand, navigateForwardCommand);
-    commandsRegistered = true;
-  }
-}
-
-
+function deactivate() { }
 function deactivate() { }
 
 module.exports = {

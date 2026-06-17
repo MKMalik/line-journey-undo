@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/MKMalik/line-journey-undo"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.84.0"
   },
@@ -28,36 +28,45 @@
       {
         "command": "extension.navigateForwardInLine",
         "title": "Navigate Forward (MKMALIK)"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "extension.navigateBackwardInLine",
-        "key": "ctrl+alt+z",
-        "mac": "cmd+alt+z",
-        "when": "editorTextFocus"
       },
       {
-        "command": "extension.navigateForwardInLine",
-        "key": "ctrl+alt+x",
-        "mac": "cmd+alt+x",
-        "when": "editorTextFocus"
+        "command": "lineJourneyUndo.configure",
+        "title": "Configure Line Journey Undo"
       }
-    ]
-  },
-  "configuration": {
-    "lineJourneyUndo.delayTimer": {
-      "type": "number",
-      "default": 500,
-      "description": "Set the delay timer in milliseconds for line change recording."
+    ],
+  "keybindings": [
+    {
+      "command": "extension.navigateBackwardInLine",
+      "key": "ctrl+alt+z",
+      "mac": "cmd+alt+z",
+      "when": "editorTextFocus"
     },
-    "lineJourneyUndo.maxHistoryLimit": {
-      "type": "number",
-      "default": 50,
-      "description": "Set the maximum limit for line history entries."
+    {
+      "command": "extension.navigateForwardInLine",
+      "key": "ctrl+alt+x",
+      "mac": "cmd+alt+x",
+      "when": "editorTextFocus"
     }
-  },
-  "scripts": {
+  ],
+  "configuration": {
+    "title": "Line Journey Undo",
+    "properties": {
+      "lineJourneyUndo.delayTimer": {
+        "type": "number",
+        "default": 500,
+        "minimum": 50,
+        "description": "Set the delay timer in milliseconds for line change recording."
+      },
+      "lineJourneyUndo.maxHistoryLimit": {
+        "type": "number",
+        "default": 50,
+        "minimum": 1,
+        "description": "Set the maximum limit for line history entries."
+      }
+    }
+  }
+},
+"scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js"
